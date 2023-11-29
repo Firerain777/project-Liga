@@ -1,0 +1,116 @@
+# project-Liga
+ЛК Администратора 
+
+openapi: 3.0.0
+info:
+  title: ЛК Админа
+  version: 1.0.1
+paths:
+  /traineeship:
+    post:
+      tags:
+        - ЛК Администратора
+      summary: Создание новой стажировки
+      operationId: creationtrainee
+      security:
+        - Authorization: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/traineeship'
+      responses:
+        '200':
+          description: Стажировка создана
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Идентификатор созданной стажировки
+                  traineeship:
+                    $ref: '#/components/schemas/traineeship'
+        '401':
+          description: Неавторизован
+  
+  /programm/lection:
+    post:
+      tags:
+        - ЛК Администратора
+      summary: Создание новой лекции
+      operationId: creationlection
+      security:
+        - Authorization: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/lection'
+      responses:
+        '200':
+          description: Лекция создана
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Идентификатор созданной программы
+                  programm:
+                    $ref: '#/components/schemas/lection'
+        '401':
+          description: Неавторизован
+          
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    traineeship:
+      type: object
+      required:
+        - name
+        - date_begin
+        - date_end
+        - specifications
+        - header
+        - programm
+      properties:
+        name:
+          type: string
+          description: Название стажировки
+        date_begin:
+          type: string
+          format: date
+          description: Дата начала стажировки
+        date_end:
+          type: string
+          format: date
+          description: Дата окончания стажировки
+        specifications:
+          type: string
+          description: Направление стажировки
+        header:
+          type: string
+          description: Руководитель стажировки
+    lection:
+      type: object
+      description: Программа стажировки
+      properties:
+          lectionTheme:
+            type: string
+            description: Тема лекции
+          description:
+            type: string
+            description: Описание лекции
+          lectionDate:
+            type: string
+            format: date
+            description: Дата лекции

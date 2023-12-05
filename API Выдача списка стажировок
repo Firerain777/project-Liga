@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+  title: ЛК АДмина
+  version: 1.0.1
+tags:
+  - name: ЛК админа
+    description: API ЛК админа
+paths:
+  /traineeship:
+    get:
+      tags:
+        - ЛК админа
+      summary: Получение списка стажировок
+      operationId: listTraineeship
+      security:
+        - Authorization: []
+      parameters:
+        - name: user_id
+          in: query
+          required: true
+          description: id_пользователя
+          schema:
+            type: number
+            default: 12334
+      responses:
+        '200':
+          description: Список стажировок
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/traineeship'
+        '401':
+          description: Неавторизован
+        '404':
+          description: Сервер не найден
+
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    traineeship:
+      type: object
+      required:
+        - name
+        - date_begin
+        - date_end
+        - specifications
+        - header
+      properties:
+        name:
+          type: string
+          description: Название стажировки
+        date_begin:
+          type: string
+          format: date
+          description: Дата начала стажировки
+        date_end:
+          type: string
+          format: date
+          description: Дата окончания стажировки
+        specifications:
+          type: string
+          description: Направление стажировки
+        header:
+          type: string
+          description: Руководитель стажировки
+        traineeshipStatus:
+          type: boolean
+          description: Статус стажировки
+        statusAnons:
+          type: boolean
+          description: Статус стажировки
+        test:
+          type: string
+          description: Ссылка на файл тестового

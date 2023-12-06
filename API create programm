@@ -1,0 +1,60 @@
+openapi: 3.0.0
+info:
+  title: ЛК Админа
+  version: 1.0.1
+paths:
+/traineeship/{id}/programm:
+    post:
+      tags:
+        - ЛК Администратора
+      summary: Создание новой лекции
+      operationId: creationlection
+      security:
+        - Authorization: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Идентификатор стажировки
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/lection'
+      responses:
+        '200':
+          description: Лекция создана
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Идентификатор созданной лекции
+                  programm:
+                    $ref: '#/components/schemas/lection'
+        '401':
+          description: Неавторизован
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    lection:
+      type: object
+      description: Программа стажировки
+      properties:
+          lectionTheme:
+            type: string
+            description: Тема лекции
+          lectionDate:
+            type: string
+            format: date
+            description: Дата лекции
+

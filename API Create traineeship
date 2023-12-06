@@ -57,7 +57,7 @@ paths:
               $ref: '#/components/schemas/traineeship'
       responses:
         '200':
-          description: Стажировка создана
+          description: Параметры заданы
           content:
             application/json:
               schema:
@@ -118,11 +118,11 @@ components:
     traineeship:
       type: object
       required:
-        - name
         - date_begin
         - date_end
         - specification
         - header
+        - test
       properties:
         name:
           type: string
@@ -140,6 +140,9 @@ components:
           description: Направление стажировки
         header:
           type: string
+          description: Руководитель стажировки
+        test:
+          type: object
           description: Руководитель стажировки
     lection:
       type: object

@@ -1,6 +1,3 @@
-# project-Liga
-ЛК Администратора 
-
 openapi: 3.0.0
 info:
   title: ЛК Админа
@@ -14,6 +11,44 @@ paths:
       operationId: creationtrainee
       security:
         - Authorization: []
+      requestBody:
+        required: true
+        content:
+          name:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: Стажировка создана
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Идентификатор созданной стажировки
+                  name:
+                    type: string
+                    description: Наименование стажировки
+        '401':
+          description: Неавторизован
+
+  /traineeship/{id}:
+    post:
+      tags:
+        - ЛК Администратора
+      summary: Заполнение стажировки
+      operationId: parametrtrainee
+      security:
+        - Authorization: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Идентификатор стажировки
+          schema:
+            type: string
       requestBody:
         required: true
         content:
@@ -35,8 +70,8 @@ paths:
                     $ref: '#/components/schemas/traineeship'
         '401':
           description: Неавторизован
-  
-  /programm/lection:
+          
+  /traineeship/{id}/programm:
     post:
       tags:
         - ЛК Администратора
@@ -44,6 +79,13 @@ paths:
       operationId: creationlection
       security:
         - Authorization: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Идентификатор стажировки
+          schema:
+            type: string
       requestBody:
         required: true
         content:
@@ -65,7 +107,7 @@ paths:
                     $ref: '#/components/schemas/lection'
         '401':
           description: Неавторизован
-          
+
 components:
   securitySchemes:
     Authorization:
@@ -79,9 +121,8 @@ components:
         - name
         - date_begin
         - date_end
-        - specifications
+        - specification
         - header
-        - programm
       properties:
         name:
           type: string
@@ -94,7 +135,7 @@ components:
           type: string
           format: date
           description: Дата окончания стажировки
-        specifications:
+        specification:
           type: string
           description: Направление стажировки
         header:
@@ -107,9 +148,6 @@ components:
           lectionTheme:
             type: string
             description: Тема лекции
-          description:
-            type: string
-            description: Описание лекции
           lectionDate:
             type: string
             format: date

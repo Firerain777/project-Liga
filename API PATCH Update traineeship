@@ -1,0 +1,94 @@
+openapi: 3.0.0
+info:
+  title: ЛК Админа
+  version: 1.0.1
+paths:
+  /traineeship/{id}:
+    patch:
+      tags:
+        - ЛК Администратора
+      summary: Редактирование стажировки
+      operationId: redactiontrainee
+      security:
+        - Authorization: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id_стажировки
+          schema:
+            type: number
+            default: 12334  
+      requestBody:
+        required: true
+        content:
+          parametrs:
+            schema:
+              type: object
+              items:
+                  $ref: '#/components/schemas/traineeship'
+      responses:
+        '200':
+          description: Стажировка отредактирована
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/traineeship'
+              examples:
+                Обновление информации по стажировке:
+                  value:
+                    name: Системный анализ в OCS
+                    specification: Аналитика
+                    date_begin: 16.08.2022
+                    date_end: 16.11.2022
+                    header: Иванов Иван Иванович
+                    status: true
+                    test: file
+        '404':
+          description: Стажировка не найдена
+        '409':
+          description: Такая стажировка уже есть
+        '401':
+          description: Неавторизован
+
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    traineeship:
+      type: object
+      required:
+        - name
+        - specification
+        - date_begin
+        - date_end
+        - header
+        - status
+        - test
+      properties:
+        name:
+          type: string
+          description: Название стажировки
+        specification:
+          type: string
+          description: Направление стажировки
+        date_begin:
+          type: string
+          format: date
+          description: Дата начала стажировки
+        date_end:
+          type: string
+          format: date
+          description: Дата окончания стажировки
+        header:
+          type: string
+          description: Руководитель стажировки
+        status:
+          type: boolean
+          description: Текущий статус стажировки
+        test:
+          type: object
+          description: Тестовое задание

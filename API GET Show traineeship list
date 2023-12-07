@@ -1,10 +1,10 @@
 openapi: 3.0.0
 info:
-  title: ЛК АДмина
+  title: Выдача стажировки
   version: 1.0.1
 tags:
-  - name: ЛК админа
-    description: API ЛК админа
+    - name: ListTraineeship
+      description: Список стажировок
 paths:
   /traineeship:
     get:
@@ -17,7 +17,7 @@ paths:
       parameters:
         - name: user_id
           in: query
-          required: true
+          required: false
           description: id_пользователя
           schema:
             type: number
@@ -51,6 +51,9 @@ components:
         - date_end
         - specifications
         - header
+        - traineeshipStatus
+        - statusAnons 
+        - test
       properties:
         name:
           type: string
@@ -76,5 +79,5 @@ components:
           type: boolean
           description: Статус стажировки
         test:
-          type: string
+          type: object
           description: Ссылка на файл тестового

@@ -65,7 +65,6 @@ components:
         - specification
         - date_begin
         - date_end
-        - header
         - status
         - test
       properties:

@@ -42,7 +42,6 @@ paths:
                     date_begin: 16.08.2022
                     date_end: 16.11.2022
                     header: Иванов Иван Иванович
-                    status: true
                     test: file
         '404':
           description: Стажировка не найдена
@@ -84,9 +83,6 @@ components:
         header:
           type: string
           description: Руководитель стажировки
-        status:
-          type: boolean
-          description: Текущий статус стажировки
         test:
           type: object
           description: Тестовое задание

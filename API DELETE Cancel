@@ -1,0 +1,39 @@
+openapi: 3.0.0
+info:
+  title: Стажировка
+  version: 1.0.1
+tags:
+    - name: DeleteTraineeship
+      description: Удаление стажировки
+paths:
+  /traineeship/{id}:
+    delete:
+      tags:
+        - DeleteTraineeship
+      summary: Удаление стажировки
+      operationId: DeleteTraineeship
+      security:
+        - Authorization: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Идентификатор стажировки
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Стажировка удалена
+        '400':
+          description: Неверный запрос
+        '401':
+          description: Неавторизован
+        '500':
+          description: Внутренняя ошибка сервера
+          
+components:
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
